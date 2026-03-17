@@ -1,0 +1,9 @@
+{
+  "name": "figma-ai-system",
+  "version": "1.0.0",
+  "description": "Figma AI System with Figma Console MCP and GoDaddy",
+  "type": "module",
+  "scripts": {
+    "setup:figma-bridge": "node .claude/skills/designer-figma/scripts/setup-figma-bridge.mjs"
+  }
+}

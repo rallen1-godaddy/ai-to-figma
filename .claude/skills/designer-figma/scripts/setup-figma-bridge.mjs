@@ -1,0 +1,37 @@
+#!/usr/bin/env node
+
+import { execSync } from "child_process";
+import { readdirSync, rmSync, renameSync, unlinkSync, existsSync, mkdirSync } from "fs";
+import path from "path";
+
+const cwd = process.cwd();
+const packDir = "package";
+const bridgeInPack = path.join(packDir, "figma-desktop-bridge");
+const bridgeInTarball = "package/figma-desktop-bridge";
+const bridgeDest = "assets/figma-desktop-bridge";
+
+// 1. Pack the package
+execSync("npm pack figma-console-mcp", { cwd, stdio: "inherit" });
+
+// 2. Find the tgz (single match)
+const files = readdirSync(cwd);
+const tgz = files.find((f) => f.startsWith("figma-console-mcp-") && f.endsWith(".tgz"));
+if (!tgz) throw new Error("npm pack did not produce a figma-console-mcp-*.tgz");
+
+const tgzPath = path.join(cwd, tgz);
+
+// 3. Extract only package/figma-desktop-bridge (use relative path for tar - Windows tar fails on absolute C:/ paths)
+execSync(`tar -xzf "${tgz}" ${bridgeInTarball}`, { cwd, stdio: "inherit" });
+
+// 4. Move to build/assets folder (ensure parent exists)
+const destPath = path.join(cwd, bridgeDest);
+const parent = path.dirname(destPath);
+if (!existsSync(parent)) mkdirSync(parent, { recursive: true });
+if (existsSync(destPath)) rmSync(destPath, { recursive: true });
+renameSync(path.join(cwd, bridgeInPack), destPath);
+
+// 5. Cleanup
+rmSync(path.join(cwd, packDir), { recursive: true });
+unlinkSync(tgzPath);
+
+console.log("Figma Desktop Bridge extracted to assets/figma-desktop-bridge");
