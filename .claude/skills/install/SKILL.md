@@ -1,7 +1,6 @@
 ---
 name: install
 description: Install Figma AI System with Figma Console and GoDaddy MCPs. Sets up tokens, bridge, and config. Use when user says install, setup, /install.
-disable-model-invocation: true
 ---
 
 # Install

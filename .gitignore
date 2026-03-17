@@ -1,2 +1,30 @@
 # macOS
 .DS_Store
+
+# Windows
+Thumbs.db
+desktop.ini
+
+# npm
+node_modules/
+package-lock.json
+
+# Cursor (local MCP config)
+.cursor/mcp.json
+
+# Local paths config (copy from work/paths.md.template)
+work/paths.md
+work/*
+!work/paths.md.template
+
+# Local install custom (copy from .claude/skills/install-custom/SKILL.md.template)
+.claude/skills/install-custom/SKILL.md
+
+# Install handoff (agent-created, do not commit)
+.claude/skills/install/install-handoff.marker
+
+# Figma bridge (created by npm run setup:figma-bridge)
+assets/figma-desktop-bridge/
+
+# Verification and cleanup (agent-created reports)
+.tmp/
