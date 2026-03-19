@@ -1,7 +1,6 @@
 ---
 name: uninstall
 description: Remove Figma AI System MCP entries from the user's Claude config and Cursor's project MCP config. Use when user says uninstall, /uninstall.
-disable-model-invocation: true
 ---
 
 # Uninstall
